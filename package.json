@@ -8,7 +8,7 @@
     "migrate:up": "npx sequelize-cli db:migrate",
     "debug": "nodemon --inspect app.js",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
-    "test": "mocha 'test/test.js'"
+    "test": "mocha 'test.js'"
   },
   "author": "Sai Sumanth Kammal Shetty",
   "license": "ISC",
