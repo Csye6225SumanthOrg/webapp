@@ -7,6 +7,8 @@
     app.use(express.json());
     app.use(cors());
     app.use(express.static(__dirname +'/public'));
-    app.use('/',userRoute);
-
+    app.use('/v1',userRoute);
+    app.get('/healthz',(req,res)=>{
+        return res.status(200).json({message: "its healthy"});
+    });
     module.exports = app;
