@@ -1,7 +1,7 @@
 const app = require('./app');
 const {sequelize} = require('./models');
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.APP_PORT 
 
 async function main() {
     try {
@@ -10,10 +10,11 @@ async function main() {
       } catch (error) {
         console.error('Unable to connect to the database:', error);
       }
-    await sequelize.sync()
+    await sequelize.sync();
     
 }
 
 app.listen(PORT,async()=>{
+    console.log("App started on: " + PORT)
     main();
   })
