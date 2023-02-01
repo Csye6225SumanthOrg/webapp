@@ -50,18 +50,54 @@ const validatePassword = (name)=>{
 
 }
 
+const validateUpdate = (data)=>{
+    var errorMessages = []
+
+    var inputParams = ['first_name','last_name','password'];
+    var paramSet = new Set(inputParams);
+    if(Object.keys(data).length>3){
+        errorMessages.push(MESSAGE.NO_DATA_UPDATE);
+    }
+    else{
+        Object.keys(data).forEach(e=>{
+            if(!paramSet.has(e))
+            {
+                errorMessages.push(MESSAGE.NO_DATA_UPDATE);
+            }
+        })
+    }
+    return errorMessages;
+}
+
 const validateCreate = (data)=>{
     var errorMessages = []
-    if(data && data.password){
-        var regExPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
-        if(regExPassword.test(data.password)){
-            errorMessages.push(MESSAGE.INCORRECT_PASSWORD);
-        }
-        
+    var inputParams = ['username','password','last_name','first_name'];
+    var paramSet = new Set(inputParams);
+    if(Object.keys(data).length!=inputParams.length){
+        errorMessages.push(MESSAGE.NO_DATA_CREATE);
     }
+    else{
+        Object.keys(data).forEach(e=>{
+            if(!paramSet.has(e))
+            {
+                errorMessages.push(MESSAGE.NO_DATA_CREATE);
+            }
+        })
+    }
+    if(data && data.password){
+        // var regExPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+        // if(!regExPassword.test(data.password)){
+        //     errorMessages.push(MESSAGE.INVALID_PASSWORD);
+        // }   
+    }
+    else{
+        errorMessages.push(MESSAGE.INVALID_PASSWORD);
+    }
+    return errorMessages;
 }
 
 module.exports = {
+    validateUpdate:validateUpdate,
     errorObj:errorObj,
     validateCreate:validateCreate,
     createErrorObj :createErrorObj

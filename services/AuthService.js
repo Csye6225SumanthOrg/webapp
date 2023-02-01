@@ -21,8 +21,8 @@ const BasicAuth = async (req, res, next) => {
     const user = await User.findOne({ where: { username: email } });
     console.log(user);
     if (!user) {
-        return res.status(400).json({
-            message: 'Bad Request'
+        return res.status(401).json({
+            message: 'Invalid Authentication Credentials'
         })
     }
     // verify password
