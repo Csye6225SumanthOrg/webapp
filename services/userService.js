@@ -6,7 +6,7 @@ var message = require('../constant/messages');
 var userService = {}
 
 userService.createUser = async function(data,func){
-    var errors = validate.createErrorObj(data);
+    var errors = validate.validateCreate(data);
     if(errors.length>0){
         var errorObj = {
             isSuccess : false,
@@ -19,7 +19,15 @@ userService.createUser = async function(data,func){
    try{
        
         const user = await User.create({username, password,first_name,last_name});
-        func(null,user,201) ;
+        const res ={
+            id: user.id,
+            username:user.username,
+            first_name:user.first_name,
+            last_name:user.last_name,
+            account_created:user.account_created,
+            account_updated:user.account_updated
+        }
+        func(null,res,201) ;
     }
     catch(err){
         func(validate.createErrorObj(err),null,400) ;
@@ -28,6 +36,14 @@ userService.createUser = async function(data,func){
 
 userService.updateUser = async function(data,func){
     try{
+        var errors = validate.validateUpdate(data.body);
+        if(errors.length>0){
+            var errorObj = {
+                isSuccess : false,
+                errors : errors
+            }
+           return func(errorObj,null,400);
+        }
         if(!data.body){
             return  func(validate.errorObj(message.INVALID_BODY),null,400);
         }
@@ -69,7 +85,7 @@ userService.updateUser = async function(data,func){
     }
     catch(error){
         console.log(error);
-        return func(error,null,400);
+        return func(validate.createErrorObj(error),null,400);
     }
 
 

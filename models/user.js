@@ -16,32 +16,53 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     username: {
       type:DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+      allowNull: {
+        arg:false,
+        msg: 'User name cannot be empty'
+      },
+      unique: {
+        arg: true,
+        msg: 'This username is already taken.'
+      },
       validate:{
-        isEmail: true,
+        isEmail: {
+          arg: true,
+          msg: 'Username should be in form of email.'
+        },
       }
     },
     password: {
       type:DataTypes.STRING,
-      allowNull: false,
-      // validate:{
-      //   is: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$/,
-      // }
+      allowNull: {
+        arg:false,
+        msg: 'Password cannot be empty'
+      }
     },
 
     first_name: {
       type:DataTypes.STRING,
-      allowNull: false,
+      allowNull: {
+        arg:false,
+        msg: 'First name cannot be empty'
+      },
       validate:{
-        isAlphanumeric: true
+        isAlphanumeric: {
+          arg: true,
+          msg: "Enter valid first name"
+        }
       }
     },
     last_name: {
       type:DataTypes.STRING,
-      allowNull: false,
+      allowNull: {
+        arg:false,
+        msg: 'Last name cannot be empty'
+      },
       validate:{
-        isAlphanumeric: true
+        isAlphanumeric: {
+          arg: true,
+          msg: "Enter valid last name"
+        }
       }
     }
   }, {
