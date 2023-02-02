@@ -58,7 +58,7 @@ userService.updateUser = async function(data,func){
         }
         const userID = data.params.userID;
         var userData = await User.findByPk(userID);
-        if(data.body.username && userData.username!=data.body.username){
+        if(userData.username!=data.body.username){
             return  func(validate.errorObj(message.NO_EMAIL_ADDRESS),null,400);
         }
         if(data.body.id && userData.id!=data.body.id){

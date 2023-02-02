@@ -9,12 +9,16 @@ module.exports ={
     INVALID_BODY:"Payload can't be empty",
     NO_ACC_UPDATED_AT:" account_updated_at cannot be updated",
     NO_ACC_CREATED_AT:" account_created_at cannot be updated",
-    NO_EMAIL_ADDRESS:"Email Address cannot be updated",
+    NO_EMAIL_ADDRESS:"Enter the correct username and this field cannot be updated",
     NO_DATA_UPDATE:" Payload doesn't contains any of first_name,secondName,password for update",
     NO_DATA_CREATE:"For creation of user, payload should contain all of these fields : first_name, last_name, password, username.",
     NO_ID_UPDATE:"ID cannot be update",
     NO_UPDATE:"Couldn't update the record",
     NO_RECORD:"No record found",
-    NO_PASSWORD:"Please enter password"
+    NO_PASSWORD:"Please enter password",
+    NO_AUTH:"Missing Authorization Header",
+    INVALID_CRED:"Invalid Authentication Credentials",
+    FORBIDDEN_SRC:'Forbidden Resource',
+    BAD_REQUEST:'Bad Request'
 
 }

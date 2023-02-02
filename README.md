@@ -30,25 +30,33 @@
     1. As a user, I want to get my account information. Response payload should return all fields for the user except for password.
 
 
-## Prerequisites softwares 
+## Prerequisites softwares and libraries
 - Postgres DB
 - NodeJS (Version 16.17)
-- Sequelize CLI
-
+- Sequelize (3rd party package for ORM in Node)
+- bcryptjs
+- chai
+- express
+- mocha
+- pg
+- pg-hstore
+- sequelize
+- supertest
 ## Steps to deploy it locally.
-- clone the fork repo  `git clone git@github.com:kammalshettys/webapp.git`
+- clone fork repo:  `git clone git@github.com:kammalshettys/webapp.git`
 
-- navigate to the repo and install node modules  `npm install`
+- run  `npm install` to install packages
 
 - Once  node_modules is installed. create a .env file and add db details and port details.
-    `DB_HOSTNAME = localhost`
-    `DB_PASSWORD = 1234`
-    `DB_USER = postgres`
-    `DB_NAME = postgres`
-    `DB_DIALECT = postgres`
-    `DB_PORT = 5432`
-    `APP_PORT = 7070`
+-   `DB_HOSTNAME = localhost`
+-    `DB_PASSWORD = 1234`
+-    `DB_USER = postgres`
+-    `DB_NAME = postgres`
+-    `DB_DIALECT = postgres`
+-    `DB_PORT = 5432`
+-    `APP_PORT = 7070`
+-    Before running a application make sure there 
 - since node_modules contains nodemon as well. we can run the server two ways:  `npx nodemon` or `npm start`
 
-## Testing app
+## Application Testing
 run `npm test` : this runs test on test.js

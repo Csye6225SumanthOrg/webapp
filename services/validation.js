@@ -52,10 +52,9 @@ const validatePassword = (name)=>{
 
 const validateUpdate = (data)=>{
     var errorMessages = []
-
-    var inputParams = ['first_name','last_name','password'];
+    var inputParams = ['username','password','last_name','first_name'];
     var paramSet = new Set(inputParams);
-    if(Object.keys(data).length>3){
+    if(Object.keys(data).length!=inputParams.length){
         errorMessages.push(MESSAGE.NO_DATA_UPDATE);
     }
     else{
