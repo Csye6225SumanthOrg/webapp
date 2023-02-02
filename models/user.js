@@ -45,11 +45,9 @@ module.exports = (sequelize, DataTypes) => {
         arg:false,
         msg: 'First name cannot be empty'
       },
-      validate:{
         isAlphanumeric: {
           arg: true,
           msg: "Enter valid first name"
-        }
       }
     },
     last_name: {
