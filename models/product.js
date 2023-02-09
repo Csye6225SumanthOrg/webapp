@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       allowNull: false,
       validate:{
+        max:{
+          args:[100],
+          msg:"Quantity cannot be greater than 100"
+        },
         min:{
           args:[0],
           msg:"Quantity cannot be less than 0"
