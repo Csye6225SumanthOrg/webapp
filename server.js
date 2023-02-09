@@ -10,8 +10,8 @@ async function db_main() {
       } catch (error) {
         console.error('Unable to connect to the database:', error);
       }
-    await sequelize.createSchema('public');
-    await sequelize.sync({alter:true});
+      await sequelize.query("CREATE SCHEMA IF NOT EXISTS public;");
+      await sequelize.sync({alter:true});
 }
 
 
