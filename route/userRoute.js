@@ -1,6 +1,7 @@
 const express = require('express');
 const UserController = require('../controller/Usercontroller')
 const AuthService = require('../services/AuthService');
+const ProductController = require('../controller/ProductController')
 const route = express.Router();
 
 
@@ -10,5 +11,10 @@ route.get('/v1/user/:userID', [AuthService,UserController.getUser]);
 route.get('/healthz',[UserController.health])
 route.get('/sampleAPI',[UserController.sampleAPI]);
 
+route.post('/v1/product',[AuthService,ProductController.createProduct]);
+route.put('/v1/product/:prodID',[AuthService,ProductController.updateProduct]);
+route.patch('/v1/product/:prodID',[AuthService,ProductController.patchProduct]);
+route.delete('/v1/product/:prodID',[AuthService,ProductController.deleteController]);
+route.get('/v1/product/:prodID',[ProductController.getProduct]);
 
 module.exports = route;

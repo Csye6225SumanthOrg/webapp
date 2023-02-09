@@ -39,12 +39,16 @@ const AuthService = async (req, res, next) => {
             })
         }
     }
-    else{
-        return res.status(400).json({
-            message: MESSAGE.BAD_REQUEST
-        }) 
-    }
+    // else{
+    //     return res.status(400).json({
+    //         message: MESSAGE.BAD_REQUEST
+    //     }) 
+    // }
     // authentication successful
+    res.locals.user ={
+        id: user.id,
+        username: user.username
+    };
     next();
 
 

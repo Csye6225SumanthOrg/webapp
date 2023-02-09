@@ -37,7 +37,10 @@ const createErrorObj = (err) =>{
             errors.push(e.message);
         })
     }
-    return {isSuccess:false,errors:errors};
+    else if(err && err.message){
+        errors.push(err.message);
+    }
+        return {errors:errors};
 }
 
 const validatePassword = (name)=>{
@@ -48,6 +51,27 @@ const validatePassword = (name)=>{
     var specialCharacter = /[^A-Za-z0-9\s]/g;
 
 
+}
+
+const validateProductCreate = (data)=>{
+    var errorMessages = []
+    var inputParams = ['name','description','sku','manufacturer','quantity'];
+    var paramSet = new Set(inputParams);
+    if(Object.keys(data).length!=inputParams.length){
+        errorMessages.push(MESSAGE.NO_DATA_CREATE_Prod);
+    }
+    else{
+        Object.keys(data).forEach(e=>{
+            if(!paramSet.has(e)|| data[e]==null || data[e]==="")
+            {
+                errorMessages.push(MESSAGE.NO_DATA_CREATE_Prod);
+            }
+        })
+    }
+    if(typeof data['quantity']!='number'){
+        errorMessages.push(MESSAGE.STR_QUANTITY);
+    }
+    return errorMessages;
 }
 
 const validateUpdate = (data)=>{
@@ -67,6 +91,35 @@ const validateUpdate = (data)=>{
     }
     return errorMessages;
 }
+
+const validatePatchProd = (data)=>{
+    var errorMessages = []
+    var inputParams = ['name','description','sku','manufacturer','quantity'];
+    var paramSet = new Set(inputParams);
+    if(Object.keys(data).length<1){
+        errorMessages.push(MESSAGE.NO_DATA_PATCH_Prod);
+    }
+    if(Object.keys(data).length>inputParams.length){
+        errorMessages.push(MESSAGE.NO_DATA_PATCH_Prod);
+    }
+    else{
+        Object.keys(data).forEach(e=>{
+            if(!paramSet.has(e))
+            {
+                errorMessages.push(MESSAGE.NO_DATA_PATCH_Prod);
+            }
+            else{
+                if(data[e]==null || data[e]===""){
+                    errorMessages.push("Enter valid data");
+
+                }
+            }
+        })
+    }
+    return errorMessages;
+}
+
+
 
 const validateCreate = (data)=>{
     var errorMessages = []
@@ -94,10 +147,16 @@ const validateCreate = (data)=>{
     }
     return errorMessages;
 }
-
+const checkID = (val)=>{
+    var numbers = /[0-9]/g;
+    return numbers.test(val);
+}
 module.exports = {
     validateUpdate:validateUpdate,
     errorObj:errorObj,
     validateCreate:validateCreate,
-    createErrorObj :createErrorObj
+    createErrorObj :createErrorObj,
+    validatePatchProd:validatePatchProd,
+    validateProductCreate:validateProductCreate,
+    checkID:checkID
 }
