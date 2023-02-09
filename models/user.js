@@ -44,10 +44,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: {
         arg:false,
         msg: 'First name cannot be empty'
-      },
-        isAlphanumeric: {
-          arg: true,
-          msg: "Enter valid first name"
+      }, validate:{
+           isAlphanumeric: {
+              arg: true,
+              msg: "Enter valid first name"
+        }
       }
     },
     last_name: {
@@ -76,6 +77,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     updatedAt: 'account_updated',  
     createdAt: 'account_created',
+    logging: false,
     modelName: 'User',
   });
   return User;

@@ -12,6 +12,9 @@ module.exports ={
     NO_EMAIL_ADDRESS:"Enter the correct username and this field cannot be updated",
     NO_DATA_UPDATE:" Payload doesn't contains any of first_name,secondName,password for update",
     NO_DATA_CREATE:"For creation of user, payload should contain all of these fields : first_name, last_name, password, username.",
+    NO_DATA_CREATE_Prod:"Payload should contain all of these fields : name, description, sku, manufactures, quantity.",
+    NO_DATA_PATCH_Prod:"Payload should contain any of these fields : name, description, sku, manufactures, quantity.",
+
     NO_ID_UPDATE:"ID cannot be update",
     NO_UPDATE:"Couldn't update the record",
     NO_RECORD:"No record found",
@@ -19,6 +22,10 @@ module.exports ={
     NO_AUTH:"Missing Authorization Header",
     INVALID_CRED:"Invalid Authentication Credentials",
     FORBIDDEN_SRC:'Forbidden Resource',
-    BAD_REQUEST:'Bad Request'
+    BAD_REQUEST:'Bad Request',
+    NO_DATA:'No product found',
+    STR_QUANTITY:"Quantity should be number",
+    PROD_ID_STR:"Prod ID should be a number",
+    NO_DATA:"No Data found"
 
 }
