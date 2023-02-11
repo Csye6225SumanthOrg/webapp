@@ -60,3 +60,4 @@
 
 ## Application Testing
 run `npm test` : this runs test on test.js
+testing applicaiton.
