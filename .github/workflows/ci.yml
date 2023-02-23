@@ -37,7 +37,7 @@ jobs:
       uses: hashicorp/setup-packer@main
       id: setup
       with:
-        version: "`latest`"
+        version: "latest"
     - name: Run `packer init`
       id: init
       run: "packer init aws-ami.pkr.hcl"
