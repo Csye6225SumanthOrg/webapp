@@ -6,8 +6,8 @@ on:
   
   workflow_dispatch:
 jobs:
-  build:
-    name: check_ci
+  ami_build:
+    name: ami_build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
