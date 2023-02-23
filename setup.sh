@@ -58,6 +58,8 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 
 npm i
+npm uninstall bcrypt
+npm install bcrypt
 sudo npm install pm2 -g
 
 
