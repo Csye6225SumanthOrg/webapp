@@ -12,7 +12,7 @@ data "amazon-ami" "amazon-linux-2_ami" {
     }
     owners = ["amazon"]
     most_recent = true
-    profile  = "csye6225-dev"
+    profile  = "dev"
 }
 
 
@@ -27,13 +27,13 @@ variable "ssh_username" {
 source "amazon-ebs" "my-ami" {
   region     = "${var.aws_region}"
   ami_name        = "csye6225_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  profile  = "csye6225-dev"
+  profile  = "dev"
   ami_description = "AMI for CSYE 6225"
   ami_regions = [
     "us-east-1",
     "us-east-2",
   ]
-  ami_users = ["460752255023", "692946913700"] ## DEV & DEMO
+  ami_users = ["300978227218"] ## DEV & DEMO
 
   aws_polling {
     delay_seconds = 30
@@ -75,11 +75,5 @@ build {
   provisioner "shell" {
       script = "setup.sh"
   }
-
-
-  provisioner "shell" {
-      inline = [
-          "echo 'ls /tmp/apps/'",
-          "ls /tmp/apps/"]
-  }
+  
 }

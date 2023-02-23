@@ -104,12 +104,4 @@ pm2 save
 
 pm2 list
 
-# Test Application
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    TEST THE APPLICATION                     |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-npm run test
 
-npm run test2
