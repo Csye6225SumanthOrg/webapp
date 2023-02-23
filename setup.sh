@@ -1,48 +1,22 @@
 #!/bin/bash
 
-# cd ../ && zip -r webapp.zip webapp && cd - && cp ../webapp.zip .
 
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    INSTALL SCRIPT                           |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-
-
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    Upgrade OS Packages                      |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
 sudo yum update
 sudo yum upgrade -y
 
 
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    Install NodeJS                           |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
 sudo yum install -y gcc-c++ make
 curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
 sudo yum install -y nodejs
 node -v
 
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    Install POSTGRESQL                       |"   
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
+
 sudo amazon-linux-extras enable postgresql14
 sudo yum install postgresql-server -y
-sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql --debug
+sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql
 
 
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    Start POSTGRESQL                         |"   
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
+
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 sudo systemctl status postgresql
@@ -52,12 +26,6 @@ sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'myPassword';"
 sudo cat /var/lib/pgsql/data/pg_hba.conf
 
 
-
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    UNZIP WEBAPP                             |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
 
 
 echo "check webapp.zip"
