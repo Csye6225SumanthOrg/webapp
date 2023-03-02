@@ -22,7 +22,9 @@ route.get('/v1/product/:prodID',[ProductController.getProduct]);
 
 
 route.post('/v1/product/:prodID/image',[upload.single("file"),AuthService, ImageController.uploadImage]);
-route.delete('/v1/product/:prodID/image/:imageID',[upload.single("file"),AuthService, ImageController.deleteObject]);
+route.delete('/v1/product/:prodID/image/:imageID',[AuthService, ImageController.deleteObject]);
+route.get('/v1/product/:prodID/image/:imageID',[AuthService, ImageController.getSingleImage]);
+route.get('/v1/product/:prodID/image',[AuthService, ImageController.getImageList]);
 
 
 module.exports = route;

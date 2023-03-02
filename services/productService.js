@@ -1,6 +1,7 @@
 const MESSAGE = require('../constant/messages');
 const validate = require('../services/validation');
-const {Product} = require('../models')
+const {Product,Image} = require('../models')
+const {deleteS3Obj} = require('../services/s3')
 const service = {};
 
 service.createProduct = async (data,usr,func)=>{
@@ -163,11 +164,24 @@ service.deleteProduct = async (data,usr,func)=>{
     const savedObj = await Product.destroy({ where: { id:prodID } });
     if(savedObj){
         const message ="successfully updated";
+        var imageData = await Image.findAll({
+            where: {
+                product_id: prodID
+            }
+          });
+          var imageCopy = [...imageData];
+          imageCopy.forEach(async e=> {
+             await deleteS3Obj({Key:e.s3_bucket_path});
+             await Image.destroy({ where: { image_id:e.image_id } });
+          })
         return func(null,{message},204);
     }
     else{
         return  func(validate.errorObj(message.NO_UPDATE),null,400);
     }
+    //delete all images
+   
+
 }
 service.getProduct = async (data,func)=>{
     const prodID = data.params.prodID;
