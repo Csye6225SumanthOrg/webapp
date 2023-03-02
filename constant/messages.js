@@ -27,6 +27,7 @@ module.exports ={
     STR_QUANTITY:"Quantity should be number",
     PROD_ID_STR:"Prod ID should be a number",
     NO_DATA:"No Data found",
+    NO_IMG:"No Image found",
     CORR_IMG:"Enter correct image"
 
 }

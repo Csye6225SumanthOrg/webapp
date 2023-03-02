@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+const uuid = require('uuid');
 
 const fs = require('fs');
 const util = require('util');
@@ -12,12 +13,12 @@ const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 const service = {};
 service.upload = async (file,productID)=>{
-
+    
     const fileStream = fs.createReadStream(file.path);
     const param = {
         Bucket:bucketName,
         Body:fileStream,
-        Key:productID+"/"+file.filename
+        Key:productID +"/" +uuid.v4() +"/" +file.originalname
     }   
     const response =  await s3.upload(param).promise();
     await unlinkFile(file.path);

@@ -74,6 +74,25 @@ const validateProductCreate = (data)=>{
     return errorMessages;
 }
 
+const validateImageCreate = (data)=>{
+    var errorMessages = []
+    var inputParams = ['file','fileType'];
+    var paramSet = new Set(inputParams);
+    if(Object.keys(data).length!=inputParams.length){
+        errorMessages.push(MESSAGE.NO_DATA_CREATE_Prod);
+    }
+    else{
+        Object.keys(data).forEach(e=>{
+            if(!paramSet.has(e)|| data[e]==null || data[e]==="")
+            {
+                errorMessages.push(MESSAGE.NO_DATA_CREATE_Prod);
+            }
+        })
+    }
+    return errorMessages;
+}
+
+
 const validateUpdate = (data)=>{
     var errorMessages = []
     var inputParams = ['username','password','last_name','first_name'];
@@ -158,5 +177,6 @@ module.exports = {
     createErrorObj :createErrorObj,
     validatePatchProd:validatePatchProd,
     validateProductCreate:validateProductCreate,
+    validateImageCreate:validateImageCreate,
     checkID:checkID
 }

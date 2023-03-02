@@ -48,6 +48,10 @@ ls -a $APP_FOLDER/webapp
 #chmod -R 777 $APP_FOLDER/webapp
 echo "pwd" - $(pwd)
 
+#psql client install
+sudo amazon-linux-extras enable postgresql14
+sudo yum install postgresql -y
+
 echo "Check permissions $APP_FOLDER/webapp"
 ls -la $APP_FOLDER/webapp
 
