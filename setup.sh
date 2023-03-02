@@ -11,19 +11,19 @@ sudo yum install -y nodejs
 node -v
 
 
-sudo amazon-linux-extras enable postgresql14
-sudo yum install postgresql-server -y
-sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql
+# sudo amazon-linux-extras enable postgresql14
+# sudo yum install postgresql-server -y
+# sudo PGSETUP_INITDB_OPTIONS=" --auth=trust" postgresql-setup --initdb --unit postgresql
 
 
 
-sudo systemctl start postgresql
-sudo systemctl enable postgresql
-sudo systemctl status postgresql
-sudo -u postgres psql
-sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'myPassword';"
+# sudo systemctl start postgresql
+# sudo systemctl enable postgresql
+# sudo systemctl status postgresql
+# sudo -u postgres psql
+# sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'myPassword';"
 
-sudo cat /var/lib/pgsql/data/pg_hba.conf
+# sudo cat /var/lib/pgsql/data/pg_hba.conf
 
 
 
@@ -45,7 +45,7 @@ cd $APP_FOLDER/webapp
 echo "listing var/www/html"
 ls -a $APP_FOLDER/webapp
 
-chmod -R 777 $APP_FOLDER/webapp
+#chmod -R 777 $APP_FOLDER/webapp
 echo "pwd" - $(pwd)
 
 echo "Check permissions $APP_FOLDER/webapp"
@@ -60,7 +60,7 @@ echo "+-------------------------------------------------------------+"
 npm i
 npm uninstall bcrypt
 npm install bcrypt
-sudo npm install pm2 -g
+# sudo npm install pm2 -g
 
 
 echo "+-------------------------------------------------------------+"
@@ -68,10 +68,12 @@ echo "|                                                             |"
 echo "|           STARTING THE APPLICATION AS A SERVICE             |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
-sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user
-pm2 start server.js
-pm2 save
+# sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user
+# pm2 start server.js
+# pm2 save
 
-pm2 list
+# pm2 list
 
-
+sudo cp /tmp/app.service /lib/systemd/system/app.service
+sudo rm -rf /tmp/app.service
+sudo systemctl daemon-reload
