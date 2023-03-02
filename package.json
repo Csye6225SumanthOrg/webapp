@@ -13,6 +13,7 @@
   "author": "Sai Sumanth Kammal Shetty",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1324.0",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "chai": "^4.3.7",
@@ -20,6 +21,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mocha": "^10.2.0",
+    "multer": "^1.4.5-lts.1",
     "pg": "^8.9.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.28.0",

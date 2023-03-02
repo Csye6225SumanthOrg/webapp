@@ -2,6 +2,9 @@ const express = require('express');
 const UserController = require('../controller/Usercontroller')
 const AuthService = require('../services/AuthService');
 const ProductController = require('../controller/ProductController')
+const ImageController = require('../controller/ImageController');
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 const route = express.Router();
 
 
@@ -16,5 +19,10 @@ route.put('/v1/product/:prodID',[AuthService,ProductController.updateProduct]);
 route.patch('/v1/product/:prodID',[AuthService,ProductController.patchProduct]);
 route.delete('/v1/product/:prodID',[AuthService,ProductController.deleteController]);
 route.get('/v1/product/:prodID',[ProductController.getProduct]);
+
+
+route.post('/v1/product/:prodID/image',[upload.single("file"),AuthService, ImageController.uploadImage]);
+route.delete('/v1/product/:prodID/image/:imageID',[upload.single("file"),AuthService, ImageController.deleteObject]);
+
 
 module.exports = route;
