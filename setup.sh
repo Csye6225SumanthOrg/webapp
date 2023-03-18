@@ -80,10 +80,12 @@ echo "+-------------------------------------------------------------+"
 
 # pm2 list
 
+#CLoud watch install
+sudo yum install amazon-cloudwatch-agent
+
 sudo cp /tmp/app.service /lib/systemd/system/app.service
 sudo rm -rf /tmp/app.service
 sudo systemctl daemon-reload
 
 
 
-#wget https://s3.region.amazonaws.com/amazoncloudwatch-agent-region/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
