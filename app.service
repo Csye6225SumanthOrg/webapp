@@ -4,6 +4,7 @@ Documentation=https://example.com
 After=network.target
 
 [Service]
+WorkingDirectory=/home/ec2-user/webapp/
 EnvironmentFile=/home/ec2-user/webapp/.env
 Type=simple
 User=ec2-user
