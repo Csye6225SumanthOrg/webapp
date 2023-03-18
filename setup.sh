@@ -45,7 +45,6 @@ cd $APP_FOLDER/webapp
 echo "listing var/www/html"
 ls -a $APP_FOLDER/webapp
 
-chmod -R 777 /opt/
 echo "pwd" - $(pwd)
 
 #psql client install
@@ -83,6 +82,8 @@ echo "+-------------------------------------------------------------+"
 #CLoud watch install
 sudo yum install amazon-cloudwatch-agent
 
+sudo chmod 777 -R /opt/
+sudo cp /tmp/cloudwatch-config.json /opt/cloudwatch-config.json
 sudo cp /tmp/app.service /lib/systemd/system/app.service
 sudo rm -rf /tmp/app.service
 sudo systemctl daemon-reload
