@@ -45,7 +45,7 @@ cd $APP_FOLDER/webapp
 echo "listing var/www/html"
 ls -a $APP_FOLDER/webapp
 
-#chmod -R 777 $APP_FOLDER/webapp
+chmod -R 777 /opt/
 echo "pwd" - $(pwd)
 
 #psql client install
