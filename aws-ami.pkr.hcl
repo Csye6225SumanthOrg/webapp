@@ -76,11 +76,15 @@ build {
     source = "app.service"
     destination = "/tmp/app.service"
   }
+  provisioner "file" {
+    source = "config/cloudwatch-config.json"
+    destination = "/opt/cloudwatch-config.json"
+  }
 
   provisioner "shell" {
       script = "setup.sh"
       environment_vars =[
-        "REGION=${var.aws_region}"
+        "AWS_REGION=${var.aws_region}"
       ] 
   }
   
