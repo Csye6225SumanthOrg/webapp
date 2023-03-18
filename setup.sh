@@ -52,6 +52,8 @@ echo "pwd" - $(pwd)
 sudo amazon-linux-extras enable postgresql14
 sudo yum install postgresql -y
 
+#installing 
+
 echo "Check permissions $APP_FOLDER/webapp"
 ls -la $APP_FOLDER/webapp
 
@@ -81,3 +83,7 @@ echo "+-------------------------------------------------------------+"
 sudo cp /tmp/app.service /lib/systemd/system/app.service
 sudo rm -rf /tmp/app.service
 sudo systemctl daemon-reload
+
+
+
+#wget https://s3.region.amazonaws.com/amazoncloudwatch-agent-region/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
