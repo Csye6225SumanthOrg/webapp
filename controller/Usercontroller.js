@@ -1,5 +1,5 @@
 const UserService= require('../services/userService');
-
+const logger = require('../logger');
 var userController = {};
 
 userController.createUser = function (req,res){
@@ -41,6 +41,7 @@ userController.getUser = function(req,res,next){
     })
 }
 userController.health = function(req,res){
+    logger.info('healthz is working');
     return res.status(200).json({message: "its healthy"});
 }
 
