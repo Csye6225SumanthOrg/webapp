@@ -4,7 +4,8 @@ var userController = {};
 const statClient = require('../config/statsd')
 
 userController.createUser = function (req,res){
-    
+    statClient.increment('my_counter');
+
     UserService.createUser(req.body,(error,success,code)=>{
         if(error){
             return res.status(code).json(error)
@@ -42,7 +43,6 @@ userController.getUser = function(req,res,next){
     })
 }
 userController.health = function(req,res){
-    statClient.increment('my_counter');
     logger.info('healthz is working');
     return res.status(200).json({message: "its healthy"});
 }
