@@ -80,7 +80,12 @@ echo "+-------------------------------------------------------------+"
 # pm2 list
 
 #CLoud watch install
-sudo yum install amazon-cloudwatch-agent
+echo "+-------------------------------------------------------------+"
+echo "|                                                             |"
+echo "|           INSTALLING CLOUD_WATCH             |"
+echo "|                                                             |"
+echo "+-------------------------------------------------------------+"
+sudo yum install amazon-cloudwatch-agent -y
 
 sudo chmod 777 -R /opt/
 sudo cp /tmp/cloudwatch-config.json /opt/cloudwatch-config.json
