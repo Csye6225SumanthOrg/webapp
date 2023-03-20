@@ -2,19 +2,12 @@ const MESSAGE = require('../constant/messages');
 const validate = require('../services/validation');
 const {Product,Image} = require('../models')
 const {upload,deleteS3Obj} = require('./s3'); 
+const logger = require('../logger');
 
 const service = {};
 
 service.uploadImage = async (data,usr,func)=>{
     try{
-                // var errors = validate.validateImageCreate(data.body);
-                // if(errors.length>0){
-                //     var errorObj = {
-                //         isSuccess : false,
-                //         errors : errors
-                //     }
-                // return func(errorObj,null,400);
-                // }
                 if(!data.file){
                     return (func(validate.errorObj(MESSAGE.NO_IMG),null,400));
 

@@ -4,7 +4,7 @@ var userController = {};
 const statClient = require('../config/statsd')
 
 userController.createUser = function (req,res){
-    statClient.increment('my_counter');
+    statClient.increment('endpoints.user.createUser');
 
     UserService.createUser(req.body,(error,success,code)=>{
         if(error){
@@ -18,7 +18,7 @@ userController.createUser = function (req,res){
 userController.updateUser = function (req,res,next){
     //console.log(next);
     console.log("id:::"+req.params.userID);
-   
+    statClient.increment('endpoints.user.updateUser');
     UserService.updateUser(req,(error,success,code)=>{
         if(error){
             return res.status(code).json(error)
@@ -32,6 +32,7 @@ userController.updateUser = function (req,res,next){
 
 }
 userController.getUser = function(req,res,next){
+    statClient.increment('endpoints.user.getUser');
     UserService.getUserDetails(req,(error,success,code)=>{
         if(error){
             return res.status(code).json(error)
@@ -43,6 +44,8 @@ userController.getUser = function(req,res,next){
     })
 }
 userController.health = function(req,res){
+    statClient.increment('endpoints.health');
+
     logger.info('healthz is working');
     return res.status(200).json({message: "its healthy"});
 }

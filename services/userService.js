@@ -2,16 +2,19 @@ const {User} = require('../models');
 const validate = require('./validation')
 var bcrypt = require('bcryptjs');
 var message = require('../constant/messages');
-
+const logger = require('../logger');
+const {loggerObj} = require('./loggerWrapper');
 var userService = {}
 
 userService.createUser = async function(data,func){
+
     var errors = validate.validateCreate(data);
     if(errors.length>0){
         var errorObj = {
             isSuccess : false,
             errors : errors
         }
+       logger.error(loggerObj(400,errorObj,null));
        return func(errorObj,null,400);
     }
    data.password= encryptPassword(data.password);
@@ -27,9 +30,11 @@ userService.createUser = async function(data,func){
             account_created:user.account_created,
             account_updated:user.account_updated
         }
+        logger.info(loggerObj(201,data,user.username));
         func(null,res,201) ;
     }
     catch(err){
+        logger.error(loggerObj(400,err,null));
         func(validate.createErrorObj(err),null,400) ;
     }
 }
@@ -42,26 +47,33 @@ userService.updateUser = async function(data,func){
                 isSuccess : false,
                 errors : errors
             }
+            logger.error(loggerObj(400,errorObj,data));
            return func(errorObj,null,400);
         }
         if(!data.body){
+            logger.error(loggerObj(400,message.INVALID_BODY,null));
             return  func(validate.errorObj(message.INVALID_BODY),null,400);
         }
         if(data.body.account_created_at){
+            logger.error(loggerObj(400,message.NO_ACC_CREATED_AT,null));
             return  func(validate.errorObj(message.NO_ACC_CREATED_AT),null,400);
         }
         if(data.body.account_updated_at){
+            logger.error(loggerObj(400,message.NO_ACC_UPDATED_AT,null));
             return  func(validate.errorObj(message.NO_ACC_UPDATED_AT),null,400);
         }
         if(!data.body.first_name && !data.body.last_name && !data.body.password){
+            logger.error(loggerObj(400,message.NO_DATA_UPDATE,null));
             return func(validate.errorObj(message.NO_DATA_UPDATE),null,400);
         }
         const userID = data.params.userID;
         var userData = await User.findByPk(userID);
         if(userData.username!=data.body.username){
+            logger.error(loggerObj(400,message.NO_EMAIL_ADDRESS,null));
             return  func(validate.errorObj(message.NO_EMAIL_ADDRESS),null,400);
         }
         if(data.body.id && userData.id!=data.body.id){
+            logger.error(loggerObj(400,message.NO_ID_UPDATE,null));
             return  func(validate.errorObj(message.NO_ID_UPDATE),null,400);
         }
         var param = {};
@@ -76,6 +88,7 @@ userService.updateUser = async function(data,func){
         }
         const savedObj = await User.update(param, { where: { id:userID } });
         if(savedObj){
+            logger.info(loggerObj(204,"successfully updated",savedObj.username));
             const message ="successfully updated";
             return func(null,{message},204);
         }
@@ -85,6 +98,7 @@ userService.updateUser = async function(data,func){
     }
     catch(error){
         console.log(error);
+        logger.error(loggerObj(400,error,null));
         return func(validate.createErrorObj(error),null,400);
     }
 
@@ -95,6 +109,7 @@ userService.getUserDetails = async function(data,func){
         var id = data.params.userID;
         const userObj = await User.findByPk(id);
         if(!userObj){
+            logger.error(loggerObj(400,message.NO_RECORD,id));
             return func(validate.errorObj(message.NO_RECORD),null,400);
         }
         const res ={
@@ -105,9 +120,11 @@ userService.getUserDetails = async function(data,func){
             account_created:userObj.account_created,
             account_updated:userObj.account_updated
         }
+        logger.info(loggerObj(204,res,res.username));
         return func(null,res,200);
     }
     catch(error){
+        logger.error(loggerObj(400,error,id));
         return func(error,null,400);
     }
 

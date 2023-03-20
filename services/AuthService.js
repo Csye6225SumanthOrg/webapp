@@ -1,6 +1,7 @@
 const { User } = require('../models');
 const bcrypt = require("bcrypt");
 const MESSAGE = require('../constant/messages')
+const logger = require('../logger');
 
 const AuthService = async (req, res, next) => {
     console.log(req.headers);
