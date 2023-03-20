@@ -3,6 +3,7 @@ const validate = require('../services/validation');
 const {Product,Image} = require('../models')
 const {deleteS3Obj} = require('../services/s3')
 const service = {};
+const logger = require('../logger');
 
 service.createProduct = async (data,usr,func)=>{
    
@@ -170,6 +171,7 @@ service.deleteProduct = async (data,usr,func)=>{
             }
           });
           var imageCopy = [...imageData];
+          logger.info({msg:"deleting images for product Delete"})
           imageCopy.forEach(async e=> {
              await deleteS3Obj({Key:e.s3_bucket_path});
              await Image.destroy({ where: { image_id:e.image_id } });
