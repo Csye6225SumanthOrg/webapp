@@ -1,8 +1,9 @@
 const UserService= require('../services/userService');
 const logger = require('../logger');
 var userController = {};
-const statClient = require('../config/statsd')
-
+//const statClient = require('../config/statsd')
+const StatsD = require('node-statsd');
+const statClient = new StatsD('localhost',8125);
 userController.createUser = function (req,res){
     statClient.increment('endpoints.user.createUser');
 
