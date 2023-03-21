@@ -44,7 +44,7 @@ userController.getUser = function(req,res,next){
     })
 }
 userController.health = function(req,res){
-//    statClient.increment('endpoints.health');
+    statClient.increment('endpoints.health');
 
     logger.info('healthz is working');
     return res.status(200).json({message: "its healthy"});
