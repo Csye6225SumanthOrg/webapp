@@ -1,4 +1,4 @@
-## Requirementsfwesew
+## Requirements
 
 1. All API request/response payloads should be in JSON.
 2. No UI should be implemented for the application.
