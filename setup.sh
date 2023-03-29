@@ -87,7 +87,7 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 sudo yum install amazon-cloudwatch-agent -y
 
-sudo chmod 777 -R /opt/
+#sudo chmod 777 -R /opt/
 sudo cp /tmp/cloudwatch-config.json /opt/cloudwatch-config.json
 sudo cp /tmp/app.service /lib/systemd/system/app.service
 sudo rm -rf /tmp/app.service
