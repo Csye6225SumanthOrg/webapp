@@ -4,7 +4,7 @@ const logger = createLogger({
     transports:[
         new transports.Console(),
         new transports.File({
-            filename:'logs/mainLog.log'
+            filename:'mainLog.log'
         })
     ],
     format: format.combine(
