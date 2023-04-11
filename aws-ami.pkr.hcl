@@ -87,5 +87,12 @@ build {
         "AWS_REGION=${var.aws_region}"
       ] 
   }
-  
+  post-processors{
+    post-processor "save_ami"{
+      type= "manifest"
+      output = "manifest.json"
+      strip_path= true
+    }
+  }  
+
 }
