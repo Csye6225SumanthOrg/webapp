@@ -43,7 +43,7 @@ jobs:
       run: "packer init aws-ami.pkr.hcl"
     - name: Run `packer build`
       id: build
-      run: "packer build aws-ami.pkr.hcl packer.json 2>&1 | sudo tee output.txt"
+      run: "packer build aws-ami.pkr.hcl"
     - name: GET AMI ID
       run: "AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ':' -f2)"
     - name: Print AMI
