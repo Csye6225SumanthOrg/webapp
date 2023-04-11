@@ -87,12 +87,9 @@ build {
         "AWS_REGION=${var.aws_region}"
       ] 
   }
-  post-processors{
-    post-processor "save_ami"{
-      type= "manifest"
-      output = "manifest.json"
-      strip_path= true
-    }
-  }  
+ post-processor "checksum" { # checksum image
+    type = "manifest" # checksum the artifact
+    output= "manifest.json"          # keep the artifact
+  }
 
 }
