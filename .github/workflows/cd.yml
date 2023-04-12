@@ -48,7 +48,7 @@ jobs:
       run: "packer build aws-ami.pkr.hcl"
     - name: GET AMI ID
       id: get_ami
-      run: "AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ':' -f2)"
+      run: AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ':' -f2)
     - name: Print AMI
       run: echo "AMI_ID=$AMI_ID" >> "$GITHUB_OUTPUT" 
 
