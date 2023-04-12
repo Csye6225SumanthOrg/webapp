@@ -43,16 +43,15 @@ jobs:
     - name: Run `packer init`
       id: init
       run: "packer init aws-ami.pkr.hcl"
-    - name: Run `packer build`
-      id: build
-      run: "packer build aws-ami.pkr.hcl"
+    # - name: Run `packer build`
+    #   id: build
+    #   run: "packer build aws-ami.pkr.hcl"
     - name: GET AMI ID
       id: GET_AMI
-      run: AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
-    - name: Print AMI
-      run: echo "AMI_ID=$AMI_ID" >> "$GITHUB_OUTPUT" 
-    - name: check AMI_ID
-      run: echo $AMI_ID
+      run: | 
+        AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
+        echo $AMI_ID
+        echo "AMI_ID=$AMI_ID" >> "$GITHUB_OUTPUT"       
   auto_deployement:
     runs-on: ubuntu-latest
     needs: [ami_build]
