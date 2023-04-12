@@ -70,3 +70,9 @@ jobs:
         run: "echo $ami_id"
       - name: check aws version
         run: "aws --version"
+      - name: refresh launchTemplate
+        run: |
+            aws ec2 create-launch-template-version \
+            --launch-template-id lt-07064f7d006ad03ce \
+            --version-description WebVersion2 --source-version 1 \
+            --launch-template-data '{"ImageId":$ami_id}'
