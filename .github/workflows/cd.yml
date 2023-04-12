@@ -43,9 +43,9 @@ jobs:
     - name: Run `packer init`
       id: init
       run: "packer init aws-ami.pkr.hcl"
-    # - name: Run `packer build`
-    #   id: build
-    #   run: "packer build aws-ami.pkr.hcl"
+    - name: Run `packer build`
+      id: build
+      run: "packer build aws-ami.pkr.hcl"
     - name: GET AMI ID
       id: GET_AMI
       run: | 
