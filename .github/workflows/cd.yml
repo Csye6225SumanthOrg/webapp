@@ -77,6 +77,6 @@ jobs:
             --source-version 1 --launch-template-id lt-07064f7d006ad03ce 
       - name: refresh autoscaling instance
         run: |
-              aws start-instance-refresh \
-              --auto-scaling-group-name csye6225-asg-spring2023
+              aws autoscaling start-instance-refresh \
+              --auto-scaling-group-name="csye6225-asg-spring2023"
 
