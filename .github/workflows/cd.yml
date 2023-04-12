@@ -67,6 +67,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
           aws-region: us-east-1 
       - name: Check AMI ID 
-        run: echo $ami_id
+        run: "echo $ami_id"
       - name: check aws version
         run: "aws --version"
