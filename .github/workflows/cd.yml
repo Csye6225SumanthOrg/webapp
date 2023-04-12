@@ -52,13 +52,13 @@ jobs:
     - name: Print AMI
       run: echo "AMI_ID=$AMI_ID" >> "$GITHUB_OUTPUT" 
     - name: check AMI_ID
-      run: echo "$AMI_ID"
+      run: echo $AMI_ID
   auto_deployement:
     runs-on: ubuntu-latest
-    needs: ami_build
+    needs: [ami_build]
     environment: Demo
     env:
-        AMI_ID: ${{needs.ami_build.outputs.AMI_ID}}
+        AMI_ID: ${{needs.ami_build.outputs.AMI_ID || vars.AMI_ID}}
     steps:
       - uses: actions/checkout@v3
       - name: Configure AWS Credentials
@@ -68,12 +68,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
           aws-region: us-east-1 
       - name: Check AMI ID 
-        run: "echo ${{vars.AMI_ID}}"
+        run: echo $AMI_ID
       - name: check aws version
         run: "aws --version"
       - name: refresh launchTemplate
         run: |
-            aws ec2 create-launch-template-version \
-            --launch-template-id lt-07064f7d006ad03ce \
-            --version-description WebVersion2 --source-version 1 \
-            --launch-template-data '{"ImageId":"${{ vars.AMI_ID }}"}'
+            aws ec2 create-launch-template-version --no-cli-pager \
+            --launch-template-data '{"ImageId":"${{ vars.AMI_ID }}"}' \
+            --source-version 1 --launch-template-id lt-07064f7d006ad03ce 
+
