@@ -73,6 +73,6 @@ jobs:
       - name: refresh launchTemplate
         run: |
             aws ec2 create-launch-template-version --no-cli-pager \
-            --launch-template-data '{"ImageId":"$AMI_ID"}' \
+            --launch-template-data '{"ImageId":"${AMI_ID}"}' \
             --source-version 1 --launch-template-id lt-07064f7d006ad03ce 
 
