@@ -75,4 +75,4 @@ jobs:
             aws ec2 create-launch-template-version \
             --launch-template-id lt-07064f7d006ad03ce \
             --version-description WebVersion2 --source-version 1 \
-            --launch-template-data '{"ImageId":$ami_id}'
+            --launch-template-data '{"ImageId":"${{ vars.ami_id }}"}'
