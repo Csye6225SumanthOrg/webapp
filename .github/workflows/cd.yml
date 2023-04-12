@@ -12,7 +12,7 @@ jobs:
     name: ami_build
     runs-on: ubuntu-latest
     outputs:
-      ami_id: ${{steps.get_ami.outputs.AMI_ID}}
+      AMI_ID: ${{steps.GET_AMI.outputs.AMI_ID}}
     steps:
     - uses: actions/checkout@v3
     - name: Package zip
@@ -47,17 +47,18 @@ jobs:
       id: build
       run: "packer build aws-ami.pkr.hcl"
     - name: GET AMI ID
-      id: get_ami
-      run: AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ':' -f2)
+      id: GET_AMI
+      run: AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
     - name: Print AMI
       run: echo "AMI_ID=$AMI_ID" >> "$GITHUB_OUTPUT" 
-
+    - name: check AMI_ID
+      run: echo "$AMI_ID"
   auto_deployement:
     runs-on: ubuntu-latest
     needs: ami_build
     environment: Demo
     env:
-        ami_id: ${{needs.ami_build.outputs.ami_id}}
+        AMI_ID: ${{needs.ami_build.outputs.AMI_ID}}
     steps:
       - uses: actions/checkout@v3
       - name: Configure AWS Credentials
@@ -67,7 +68,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
           aws-region: us-east-1 
       - name: Check AMI ID 
-        run: "echo $ami_id"
+        run: "echo ${{vars.AMI_ID}}"
       - name: check aws version
         run: "aws --version"
       - name: refresh launchTemplate
@@ -75,4 +76,4 @@ jobs:
             aws ec2 create-launch-template-version \
             --launch-template-id lt-07064f7d006ad03ce \
             --version-description WebVersion2 --source-version 1 \
-            --launch-template-data '{"ImageId":"${{ vars.ami_id }}"}'
+            --launch-template-data '{"ImageId":"${{ vars.AMI_ID }}"}'
