@@ -29,10 +29,7 @@ source "amazon-ebs" "my-ami" {
   ami_name        = "csye6225_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
   profile  = "dev"
   ami_description = "AMI for CSYE 6225"
-  ami_regions = [
-    "us-east-1",
-    "us-east-2",
-  ]
+  ami_regions = ["us-east-1"]
   ami_users = ["300978227218"] ## DEV & DEMO
 
   aws_polling {
@@ -87,8 +84,7 @@ build {
         "AWS_REGION=${var.aws_region}"
       ] 
   }
- post-processor "checksum" { # checksum image
-    type = "manifest" # checksum the artifact
+  post-processor "manifest" { # checksum image
     output= "manifest.json"          # keep the artifact
   }
 

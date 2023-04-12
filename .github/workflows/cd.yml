@@ -11,6 +11,8 @@ jobs:
   ami_build:
     name: ami_build
     runs-on: ubuntu-latest
+    outputs:
+      ami_id: ${{steps.get_ami.outputs.AMI_ID}}
     steps:
     - uses: actions/checkout@v3
     - name: Package zip
@@ -45,6 +47,26 @@ jobs:
       id: build
       run: "packer build aws-ami.pkr.hcl"
     - name: GET AMI ID
+      id: get_ami
       run: "AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ':' -f2)"
     - name: Print AMI
-      run: "echo $AMI_ID"
+      run: echo "AMI_ID=$AMI_ID" >> "$GITHUB_OUTPUT" 
+
+  auto_deployement:
+    runs-on: ubuntu-latest
+    needs: ami_build
+    environment: Demo
+    env:
+        ami_id: ${{needs.ami_build.outputs.ami_id}}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+          aws-region: us-east-1 
+      - name: Check AMI ID 
+        run: echo $ami_id
+      - name: check aws version
+        run: "aws --version"
