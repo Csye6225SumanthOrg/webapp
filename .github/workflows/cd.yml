@@ -75,7 +75,7 @@ jobs:
         run: |
             aws ec2 create-launch-template-version --no-cli-pager \
             --launch-template-data '{"ImageId":"${{env.AMI_ID}}"}' \
-            --source-version 1 --launch-template-id ${{vars.LAUNCH_TEMPLATE_ID}} 
+            --source-version 1 --launch-template-name ${{vars.LAUNCH_TEMPLATE_NAME}} 
       - name: refresh autoscaling instance
         run: |
               aws autoscaling start-instance-refresh \
