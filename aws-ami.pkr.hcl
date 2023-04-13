@@ -50,8 +50,8 @@ source "amazon-ebs" "my-ami" {
 
     launch_block_device_mappings {
       delete_on_termination = true
-      device_name           = "/dev/xvdg"
-      volume_size           = 8
+      device_name           = "/dev/xvda"
+      volume_size           = 50
       volume_type           = "gp2"
       # encrypted            = true 
     }
