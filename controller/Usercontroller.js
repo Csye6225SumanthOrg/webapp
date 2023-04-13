@@ -54,7 +54,7 @@ userController.health = function(req,res){
     statClient.increment('endpoints.health');
 
     logger.info('https healthz');
-    return res.status(200).json({message: "https healthy"});
+    return res.status(200).json({message: "Healthz part 2"});
 }
 
 userController.sampleAPI = function(req,res){
