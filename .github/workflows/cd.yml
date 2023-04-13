@@ -56,6 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ami_build]
     environment: ${{vars.ENVIRONMENT}}
+    if: ${{vars.IS_DEPLOY == 'true'}}
     env:
         AMI_ID: ${{needs.ami_build.outputs.AMI_ID || vars.AMI_ID}}
     steps:
