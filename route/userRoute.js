@@ -8,13 +8,13 @@ const upload = multer({ dest: __dirname+"/uploads/" });
 const route = express.Router();
 
 
-route.post('/v1/user',[UserController.createUser]);
-route.put('/v1/user/:userID', [AuthService,UserController.updateUser]);
-route.get('/v1/user/:userID', [AuthService,UserController.getUser]);
+route.post('/v2/user',[UserController.createUser]);
+route.put('/v2/user/:userID', [AuthService,UserController.updateUser]);
+route.get('/v2/user/:userID', [AuthService,UserController.getUser]);
 route.get('/healthz',[UserController.health])
 route.get('/sampleAPI',[UserController.sampleAPI]);
 
-route.post('/v1/product',[AuthService,ProductController.createProduct]);
+route.post('/v2/product',[AuthService,ProductController.createProduct]);
 route.put('/v1/product/:prodID',[AuthService,ProductController.updateProduct]);
 route.patch('/v1/product/:prodID',[AuthService,ProductController.patchProduct]);
 route.delete('/v1/product/:prodID',[AuthService,ProductController.deleteController]);
